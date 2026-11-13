@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi Diario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&family=Lora:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=EB+Garamond:wght@400;600&family=Playfair+Display:wght@400;600&family=Caveat:wght@400;600&family=Dancing+Script:wght@400;600&family=Satisfy&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4e1e7;--paper:#fff9fa;--head:#4a1f3d;--accent:#9b5b7a;--line:#e6c9d3;--ink:#2e1a2a;--panel:#fdeef2;--side:#4a1f3d;--sidetext:#f7e8ee;--sideline:#6a3a5a;--sideon:#5d2d4d;--sidemuted:#7a4a68;--sidesoft:#c9a3b6;--newbg:#f4e1e7;--newfg:#4a1f3d;--fill:#4a1f3d;--fillfg:#fff}
+[data-theme=lavender]{--bg:#ece6f4;--paper:#fbf9ff;--head:#3b2a5c;--accent:#7d68a8;--line:#d8cdea;--ink:#271e3a;--panel:#f1ebfa;--side:#3b2a5c;--sidetext:#f1ecfa;--sideline:#54427a;--sideon:#4a3870;--sidemuted:#6e5b96;--sidesoft:#beb0dc;--newbg:#ece6f4;--newfg:#3b2a5c;--fill:#3b2a5c}
+[data-theme=sage]{--bg:#e3ece4;--paper:#fafdf9;--head:#2f4a3b;--accent:#4f7a60;--line:#c8dccb;--ink:#1f2e25;--panel:#edf5ee;--side:#2f4a3b;--sidetext:#eef6ef;--sideline:#46634f;--sideon:#3d5a49;--sidemuted:#5b7a66;--sidesoft:#b3cdb9;--newbg:#e3ece4;--newfg:#2f4a3b;--fill:#2f4a3b}
+[data-theme=dark]{color-scheme:dark;--bg:#1b1219;--paper:#261a24;--head:#f0d3df;--accent:#c58aa6;--line:#4a3346;--ink:#f1e6ec;--panel:#33232f;--side:#120b11;--sidetext:#f1e6ec;--sideline:#3a2837;--sideon:#2d1d2a;--sidemuted:#5a4156;--sidesoft:#a98a9c;--newbg:#e9c9d8;--newfg:#2b1226;--fill:#c58aa6;--fillfg:#1b1219}
+[data-theme=navy]{--bg:#e4e9f1;--paper:#fafbfd;--head:#1c2f4f;--accent:#4a6a9a;--line:#cbd5e4;--ink:#1b2433;--panel:#eef2f8;--side:#1c2f4f;--sidetext:#eaf0f8;--sideline:#34496d;--sideon:#2a4065;--sidemuted:#4d648a;--sidesoft:#a9bad5;--newbg:#e4e9f1;--newfg:#1c2f4f;--fill:#1c2f4f}
+[data-theme=slate]{--bg:#e8e9eb;--paper:#fbfbfb;--head:#2d3239;--accent:#5d6773;--line:#d3d6da;--ink:#22262b;--panel:#f1f2f3;--side:#2d3239;--sidetext:#eef0f2;--sideline:#454c55;--sideon:#3b424b;--sidemuted:#5d6773;--sidesoft:#aeb5be;--newbg:#e8e9eb;--newfg:#2d3239;--fill:#2d3239}
+[data-theme=wine]{--bg:#f1e2e4;--paper:#fffafa;--head:#5a1f2b;--accent:#94485a;--line:#e4c8ce;--ink:#2c1a1d;--panel:#fbecee;--side:#5a1f2b;--sidetext:#f8e9ec;--sideline:#7a3a47;--sideon:#6c2e3b;--sidemuted:#8c4a58;--sidesoft:#d3a3ae;--newbg:#f1e2e4;--newfg:#5a1f2b;--fill:#5a1f2b}
+[data-theme=teal]{--bg:#dfeeed;--paper:#f9fdfd;--head:#14504f;--accent:#3b7f7c;--line:#c2dedc;--ink:#172b2b;--panel:#eaf6f5;--side:#14504f;--sidetext:#e8f6f5;--sideline:#2c6c6a;--sideon:#235e5c;--sidemuted:#3f7a78;--sidesoft:#9ccbc8;--newbg:#dfeeed;--newfg:#14504f;--fill:#14504f}
+[data-theme=rosegold]{--bg:#f6e4df;--paper:#fffaf8;--head:#6b3a32;--accent:#a2655a;--line:#ecd2cb;--ink:#33211e;--panel:#fcefeb;--side:#6b3a32;--sidetext:#fbeeea;--sideline:#8a574d;--sideon:#7b4a41;--sidemuted:#9a665b;--sidesoft:#dcb1a8;--newbg:#f6e4df;--newfg:#6b3a32;--fill:#6b3a32}
+[data-theme=sand]{--bg:#eee7dc;--paper:#fdfbf7;--head:#4a3c28;--accent:#7d6a4c;--line:#ddd2c0;--ink:#2a2419;--panel:#f6f1e8;--side:#4a3c28;--sidetext:#f5efe4;--sideline:#66553c;--sideon:#5a4a33;--sidemuted:#7d6a4c;--sidesoft:#c3b394;--newbg:#eee7dc;--newfg:#4a3c28;--fill:#4a3c28}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;display:flex}
+button,select,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+aside{width:300px;background:var(--side);color:var(--sidetext);display:flex;flex-direction:column;padding:24px 20px;flex-shrink:0}
+.top{display:flex;justify-content:space-between;align-items:flex-start}
+.logo{font-family:'Great Vibes',cursive;font-size:44px;line-height:1;margin:0 0 4px;font-weight:400}
+.tag{font-family:'Cormorant Garamond',serif;font-size:17px;opacity:.75;margin:0 0 20px}
+.hamb{width:44px;height:44px;border-radius:50%;border:1px solid var(--sidemuted);background:none;color:var(--sidetext);display:flex;align-items:center;justify-content:center}
+.new{background:var(--newbg);color:var(--newfg);border:0;border-radius:999px;padding:11px 18px;font-weight:500}
+.tools{display:flex;align-items:center;justify-content:space-between;padding:12px 4px;border-top:1px solid var(--sideline);border-bottom:1px solid var(--sideline);margin-top:14px}
+.micbtn{width:46px;height:46px;border-radius:50%;border:1px solid var(--sidemuted);background:transparent;color:var(--sidetext);display:flex;align-items:center;justify-content:center}
+.micbtn.rec{background:#b3345f;border-color:#b3345f;color:#fff}
+.tg{position:relative;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px}
+.tg input{position:absolute;opacity:0;width:44px;height:24px;right:0;margin:0;cursor:pointer}
+.tg i{width:44px;height:24px;border-radius:999px;background:var(--sidemuted);position:relative;transition:background .2s;flex-shrink:0}
+.tg i::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
+.tg input:checked+i{background:var(--newbg)}
+.tg input:checked+i::after{transform:translateX(20px);background:var(--side)}
+.tg input:focus-visible+i{outline:2px solid var(--accent);outline-offset:2px}
+.link{background:none;border:0;color:inherit;text-decoration:underline;padding:0;font-size:inherit}
+#showing{font-size:13px;color:var(--sidesoft);margin-top:12px}
+#search{margin:14px 0 10px;background:transparent;border:1px solid var(--sidemuted);border-radius:999px;padding:10px 16px;color:var(--sidetext)}
+#search::placeholder{color:var(--sidesoft)}
+#list{flex:1;overflow:auto;margin:0;padding:0;list-style:none}
+#list li button{width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--sideline);color:inherit;padding:13px 4px}
+#list li.on button{background:var(--sideon)}
+#list b{display:block;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600}
+#list small{opacity:.7}
+.grp{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--sidesoft);padding:12px 4px 4px}
+.empty{opacity:.7;padding:14px 4px;font-family:'Cormorant Garamond',serif;font-size:18px}
+body.hide #list b{filter:blur(6px)}
+body.hide #list button:hover b,body.hide #list button:focus-visible b,body.hide #list li.on b{filter:none}
+main{flex:1;display:flex;justify-content:center;padding:32px 20px;overflow:auto}
+.page{position:relative;overflow:hidden;background:var(--paper);width:100%;max-width:760px;border-radius:6px;box-shadow:0 18px 40px -22px #000a;padding:34px 40px;display:flex;flex-direction:column;min-height:0}
+.bar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.bar .sp{flex:1}
+.bar span{color:var(--accent);font-size:14px}
+#wc:not(:empty)::before{content:'· '}
+.btn{background:none;border:1px solid var(--accent);color:var(--head);border-radius:999px;padding:8px 16px;font-size:14px}
+.btn.fill{background:var(--fill);color:var(--fillfg);border-color:var(--fill)}
+.btn[aria-pressed=true]{background:var(--panel)}
+#title{border:0;background:none;font-family:var(--f,'Lora',serif);font-size:calc(40px*var(--fs,1));font-weight:var(--fw,600);color:var(--head);padding:0 0 10px;border-bottom:1px solid var(--line);width:100%}
+#tag{border:0;background:none;color:var(--accent);padding:10px 0 0;flex:1;min-width:0;font-size:14px}
+#tag::placeholder{color:var(--accent);opacity:.7}
+.moods{display:flex;flex-wrap:wrap;gap:8px;padding:10px 0 0}
+.chip{background:none;border:1px solid var(--line);color:var(--head);border-radius:999px;padding:5px 13px;font-size:13px}
+.chip[aria-pressed=true]{background:var(--fill);color:var(--fillfg);border-color:var(--fill)}
+#idea{display:none;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;margin-top:12px;font-family:'Lora',serif;font-size:15px}
+#idea .link{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--accent)}
+#body{flex:1;min-height:320px;border:0;background:none;resize:none;font-family:var(--f,'Lora',serif);font-size:calc(18px*var(--fs,1));line-height:1.85;color:var(--ink);padding:18px 0;width:100%;max-width:68ch}
+#polish{display:none;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-top:8px}
+#polish p{font-family:'Lora',serif;line-height:1.7;margin:0 0 12px;white-space:pre-wrap}
+#msg{color:#b3345f;font-size:14px;min-height:18px;margin-top:6px}
+.none{margin:auto;text-align:center;font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--head)}
+.ih{font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--head);margin:0 0 18px;font-weight:600}
+.ih2{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--head);margin:22px 0 8px;font-weight:600}
+.stats{display:flex;gap:14px;flex-wrap:wrap}
+.stats div{flex:1;min-width:110px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;text-align:center}
+.stats b{display:block;font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--head)}
+.stats span,.note{color:var(--accent);font-size:14px}
+.mrow{display:flex;align-items:center;gap:12px;margin:8px 0}
+.mrow span{width:84px;font-size:14px}
+.mbar{flex:1;height:10px;background:var(--panel);border-radius:999px;overflow:hidden}
+.mbar i{display:block;height:100%;background:var(--accent)}
+.mrow em{width:24px;font-style:normal;font-size:14px;color:var(--accent)}
+.logo{animation:write 2.2s cubic-bezier(.4,0,.2,1) .2s both,glow 5s ease-in-out 3.2s infinite}
+@keyframes write{from{clip-path:inset(-24px 100% -24px 0)}to{clip-path:inset(-24px -24px -24px 0)}}
+@keyframes glow{0%,100%{text-shadow:0 0 0 transparent}50%{text-shadow:0 0 18px currentColor}}
+.orn{height:1px;width:0;margin:2px 0 8px;background:linear-gradient(90deg,currentColor,transparent);opacity:.5;animation:grow 1.4s ease 1.2s forwards}
+@keyframes grow{to{width:100%}}
+.tag{opacity:0;animation:fade 1s ease 1.5s forwards}
+@keyframes fade{to{opacity:.75}}
+@media(prefers-reduced-motion:reduce){.logo{animation:none}.orn{animation:none;width:100%}.tag{animation:none;opacity:.75}}
+.page>*{position:relative;z-index:1}
+.page>.deco{position:absolute;z-index:0;width:300px;height:300px;color:var(--accent);opacity:.15;pointer-events:none}
+.deco.br{right:-24px;bottom:-24px}
+.deco.tl{left:-24px;top:-24px}
+.deco.rot{transform:rotate(180deg)}
+.cl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);align-self:center;min-width:48px}
+.row2{display:flex;gap:10px;align-items:center}
+#font{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:13px;margin-top:10px;max-width:170px}
+#scrim{position:fixed;inset:0;background:#0008;z-index:20}
+.menu{position:fixed;left:0;top:0;bottom:0;width:340px;max-width:100%;background:var(--paper);color:var(--ink);z-index:30;overflow:auto;padding:22px 24px 40px;box-shadow:12px 0 40px -20px #000}
+.menu h2{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--head);margin:0;font-weight:600}
+.mh{display:flex;justify-content:space-between;align-items:center}
+.menu h3{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:24px 0 4px;font-weight:500}
+.menu .tg{justify-content:space-between;width:100%;padding:12px 0;border-bottom:1px solid var(--line);color:var(--ink)}
+.menu .tg i{background:var(--line)}
+.menu .tg input:checked+i{background:var(--accent)}
+.menu .tg input:checked+i::after{background:#fff}
+.mi{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 0;color:var(--ink);font-size:15px}
+.mi:hover{background:var(--panel)}
+.sel{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.sel select{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px 8px;max-width:170px}
+.themes{padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}.themes span{display:block;margin-bottom:8px}
+.themes div{display:flex;flex-wrap:wrap;gap:12px}
+.sw{width:28px;height:28px;border-radius:50%;border:1px solid var(--accent);padding:0}
+.sw[aria-pressed=true]{outline:2px solid var(--head);outline-offset:2px}
+#pinform{padding:12px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+#pinform input,#lpin{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:6px;padding:9px 12px}
+#pinmsg{font-size:13px;color:var(--accent);width:100%}
+#lock{position:fixed;inset:0;background:var(--bg);z-index:50;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px}
+#lock .logo{font-size:64px;color:var(--head)}
+#lock p{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--head);margin:6px 0 18px}
+#lerr{color:#b3345f;min-height:22px;margin-top:10px;font-size:14px}
+.locked aside,.locked main,.locked .menu,.locked #scrim{visibility:hidden}
+#exitf{display:none;position:fixed;top:14px;right:14px;z-index:10}
+body.focus aside{display:none}
+body.focus #exitf{display:block}
+#pa{display:none}
+@media print{body>*:not(#pa){display:none!important}#pa{display:block;color:#000;font-family:'Lora',serif}#pa p{white-space:pre-wrap;line-height:1.7}}
+@media(max-width:800px){body{flex-direction:column;height:auto;min-height:100%}aside{width:100%;padding:18px}#list{max-height:170px}.page{padding:22px 18px}#title{font-size:calc(32px*var(--fs,1))}}
+</style>
+</head>
+<body>
+<aside>
+  <div class="top"><h1 class="logo">Mi Diario</h1>
+    <button class="hamb" id="hamb" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+  <div class="orn" aria-hidden="true"></div>
+  <p class="tag">My words, kept safe.</p>
+  <button class="new" id="new">New note</button>
+  <div class="tools">
+    <button class="micbtn" id="mic" aria-label="Voice typing" aria-pressed="false" title="Voice typing"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <label class="tg"><span>AI</span><input type="checkbox" id="ai"><i></i></label>
+  </div>
+  <div id="showing"></div>
+  <input id="search" type="search" placeholder="Search notes" aria-label="Search notes">
+  <ul id="list"></ul>
+</aside>
+<main><section class="page" id="page"></section></main>
+
+<div id="scrim" hidden></div>
+<nav class="menu" id="menu" role="dialog" aria-label="Menu" hidden>
+  <div class="mh"><h2>Menu</h2><button class="btn" id="mclose">Close</button></div>
+  <h3>Appearance</h3>
+  <div id="themeBox"></div>
+  <h3>Writing</h3>
+  <label class="tg"><span>Show word count</span><input type="checkbox" id="s-words"><i></i></label>
+  <button class="mi" id="m-idea">Need an idea?</button>
+  <button class="mi" id="m-focus">Focus mode</button>
+  <h3>Organise</h3>
+  <label class="sel">Show<select id="s-filter"></select></label>
+  <label class="tg"><span>Group by month</span><input type="checkbox" id="s-group"><i></i></label>
+  <h3>Privacy</h3>
+  <label class="tg"><span>Hide note titles in list</span><input type="checkbox" id="s-hide"><i></i></label>
+  <button class="mi" id="m-pin">Set PIN</button>
+  <form id="pinform" hidden><input id="pin1" type="password" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="4 to 8 digits" aria-label="New PIN"><button class="btn fill" type="submit">Save PIN</button><span id="pinmsg" role="status"></span></form>
+  <button class="mi" id="m-lock">Lock now</button>
+  <button class="mi" id="m-unpin">Remove PIN</button>
+  <h3>Your notes</h3>
+  <button class="mi" id="m-ins">Insights</button>
+  <button class="mi" id="m-exp">Download backup</button>
+  <button class="mi" id="m-imp">Restore from backup</button>
+  <input type="file" id="impf" accept=".json,application/json" hidden>
+  <button class="mi" id="m-print">Print or save note as PDF</button>
+</nav>
+<button class="btn fill" id="exitf">Exit focus mode</button>
+<div id="lock" hidden><form id="lform"><h1 class="logo">Mi Diario</h1><div class="orn" aria-hidden="true"></div><p>Enter your PIN to open your notes.</p><input id="lpin" type="password" inputmode="numeric" autocomplete="off" aria-label="PIN"> <button class="btn fill" type="submit">Unlock</button><div id="lerr" role="alert"></div></form></div>
+<div id="pa"></div>
+<script>
+let entries=[],cur=null,timer,rec=null,aiOn=true,theme='blush',pin=null,lastFocus,S={words:true,hide:false,group:false,filter:'all'};
+const $=id=>document.getElementById(id);
+const MOODS=['Happy','Calm','Grateful','Hopeful','Tired','Anxious','Sad','Angry'];
+const IDEAS=['What made you smile today?','What are you grateful for right now?','Describe a moment this week you want to remember.','What is one thing you are proud of recently?','What is weighing on your mind, and what would help?','Write a letter to yourself one year from now.','What does a perfect ordinary day look like for you?','Who helped you recently, and how?','What are you looking forward to?','What did you learn this week?','What would you do if you were not afraid?','Describe this season of your life in three sentences.'];
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
+function load(){
+  try{entries=JSON.parse(lsGet('mi-diario')||'[]')}catch(e){entries=[]}
+  try{Object.assign(S,JSON.parse(lsGet('mi-diario-set')||'{}'))}catch(e){}
+  try{pin=JSON.parse(lsGet('mi-diario-pin')||'null')}catch(e){}
+  aiOn=lsGet('mi-diario-ai')!=='off';theme=lsGet('mi-diario-theme')||'blush';
+}
+function save(){return lsSet('mi-diario',JSON.stringify(entries))}
+function saveS(){lsSet('mi-diario-set',JSON.stringify(S))}
+function get(){return entries.find(e=>e.id===cur)}
+function fmt(t){return new Date(t).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function dayStart(t){const d=new Date(t);d.setHours(0,0,0,0);return d.getTime()}
+function tags(){return [...new Set(entries.map(e=>(e.tag||'').trim()).filter(Boolean))].sort()}
+
+function streaks(){
+  const days=[...new Set(entries.filter(e=>e.body.trim()).map(e=>dayStart(e.updated)))].sort((a,b)=>a-b);
+  let best=0,run=0;
+  days.forEach((d,i)=>{run=i&&Math.round((d-days[i-1])/864e5)===1?run+1:1;best=Math.max(best,run)});
+  const set=new Set(days);let d=new Date(dayStart(Date.now())),now=0;
+  if(!set.has(d.getTime()))d.setDate(d.getDate()-1);
+  while(set.has(d.getTime())){now++;d.setDate(d.getDate()-1)}
+  return{now,best};
+}
+function matchF(e,f){return f==='all'||(f==='pinned'?!!e.pin:f.startsWith('topic:')?e.topic===f.slice(6):(e.tag||'')===f.slice(4))}
+function fixFilter(){const f=S.filter;if((f.startsWith('tag:')&&!tags().includes(f.slice(4)))||(f.startsWith('topic:')&&!entries.some(e=>e.topic===f.slice(6)))){S.filter='all';saveS()}}
+function renderList(){
+  fixFilter();
+  const q=$('search').value.toLowerCase(),f=S.filter;
+  const items=entries.filter(e=>matchF(e,f)&&(e.title+' '+e.body+' '+(e.tag||'')).toLowerCase().includes(q))
+    .sort((a,b)=>(b.pin?1:0)-(a.pin?1:0)||b.updated-a.updated);
+  let h='',last='';
+  items.forEach(e=>{
+    if(e.pin){if(last!=='p'){h+='<li class="grp">Pinned</li>';last='p'}}
+    else if(S.group){const m=new Date(e.updated).toLocaleDateString(undefined,{month:'long',year:'numeric'});if(last!==m){h+=`<li class="grp">${m}</li>`;last=m}}
+    h+=`<li class="${e.id===cur?'on':''}"><button data-id="${e.id}"><b>${esc(e.title||'Untitled')}</b><small>${fmt(e.updated)}${e.topic?' · '+e.topic:''}${e.tag?' · '+esc(e.tag):''}${e.mood?' · '+e.mood:''}</small></button></li>`;
+  });
+  $('list').innerHTML=h||`<li class="empty">${entries.length?'No notes to show.':'No notes yet. Start with New note.'}</li>`;
+  $('showing').innerHTML=f==='all'?'':'Showing: '+esc(f==='pinned'?'Pinned':f.slice(f.startsWith('topic:')?6:4))+' <button class="link" id="clr">Show all</button>';
+}
+function wcUpdate(){
+  const w=$('wc');if(!w)return;
+  if(!S.words||!$('body')){w.textContent='';return}
+  const n=$('body').value.trim().split(/\s+/).filter(Boolean).length;w.textContent=n+(n===1?' word':' words');
+}
+function renderPage(){
+  const e=get();
+  if(!e){applyFont(null);$('page').innerHTML=deco()+'<p class="none">Choose a note or start a new one.</p>';return}
+  $('page').innerHTML=deco(e)+`<div class="bar"><span id="status">${fmt(e.updated)}</span><span id="wc"></span><span class="sp"></span>
+  <button class="btn" id="pinb" aria-pressed="${!!e.pin}">${e.pin?'Pinned':'Pin'}</button><button class="btn fill" id="fix">AI</button><button class="btn" id="pic">Save picture</button><button class="btn" id="del">Delete</button></div>
+  <input id="title" placeholder="Title" value="${esc(e.title)}" aria-label="Title">
+  <div class="row2"><input id="tag" list="tl" placeholder="Add a tag or folder, like Work" value="${esc(e.tag||'')}" aria-label="Tag or folder"><datalist id="tl">${tags().map(t=>`<option value="${esc(t)}">`).join('')}</datalist>${fontSel(e)}</div>
+  <div class="moods" id="moods" role="group" aria-label="Mood"><span class="cl">Mood</span>${MOODS.map(m=>`<button type="button" class="chip" data-m="${m}" aria-pressed="${e.mood===m}">${m}</button>`).join('')}</div>
+  <div class="moods" id="topics" role="group" aria-label="Topic"><span class="cl">Topic</span>${TOPICS.map(t=>`<button type="button" class="chip" data-m="${t}" aria-pressed="${e.topic===t}">${t}</button>`).join('')}</div>
+  <div id="idea"></div>
+  <textarea id="body" placeholder="Write here..." aria-label="Note">${esc(e.body)}</textarea>
+  <div id="polish"><p id="ptext"></p><button class="btn fill" id="use">Use this version</button> <button class="btn" id="no">Keep mine</button></div>
+  <div id="msg" role="status"></div>`;
+  $('title').oninput=$('body').oninput=$('tag').oninput=change;
+  $('fix').onclick=polish;$('del').onclick=remove;applyAi();wcUpdate();
+  $('pic').onclick=savePicture;$('font').onchange=()=>{const n=get();n.font=$('font').value;save();applyFont(n)};applyFont(e);
+  $('pinb').onclick=()=>{const n=get();n.pin=!n.pin;$('pinb').textContent=n.pin?'Pinned':'Pin';$('pinb').setAttribute('aria-pressed',String(!!n.pin));save();renderList()};
+  [['moods','mood'],['topics','topic']].forEach(([id,k])=>{
+    $(id).onclick=ev=>{
+      const b=ev.target.closest('.chip');if(!b)return;const n=get();
+      n[k]=n[k]===b.dataset.m?'':b.dataset.m;
+      $(id).querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.m===n[k])));
+      save();refreshDeco(n);renderList();
+    };
+  });
+}
+function showInsights(){
+  stopMic();cur=null;renderList();applyFont(null);
+  const s=streaks(),since=Date.now()-30*864e5,recent=entries.filter(e=>e.mood&&e.updated>=since);
+  const counts=MOODS.map(m=>[m,recent.filter(e=>e.mood===m).length]),max=Math.max(1,...counts.map(c=>c[1]));
+  $('page').innerHTML=deco()+`<h2 class="ih">Your insights</h2>
+  <div class="stats"><div><b>${s.now}</b><span>day streak</span></div><div><b>${s.best}</b><span>longest streak</span></div><div><b>${entries.length}</b><span>notes</span></div></div>
+  <p class="note">A day counts when you write or edit a note.</p>
+  <h3 class="ih2">Moods, last 30 days</h3>
+  ${recent.length?counts.map(([m,n])=>`<div class="mrow"><span>${m}</span><div class="mbar"><i style="width:${n/max*100}%"></i></div><em>${n}</em></div>`).join(''):'<p class="note">Pick a mood on your notes and your patterns will show here.</p>'}`;
+}
+function select(id){cur=id;stopMic();renderPage();renderList()}
+function change(){
+  const e=get();e.title=$('title').value;e.body=$('body').value;e.tag=$('tag').value.trim();e.updated=Date.now();wcUpdate();
+  $('status').textContent='Saving...';clearTimeout(timer);
+  timer=setTimeout(()=>{$('status').textContent=save()?'Saved':'Could not save on this device';renderList()},500);
+}
+function newEntry(){
+  const e={id:String(Date.now()),title:'',body:'',mood:'',tag:'',pin:false,font:'lora',updated:Date.now()};
+  entries.push(e);save();select(e.id);$('title').focus();
+}
+function remove(){
+  if(!confirm('Delete this note? This cannot be undone.'))return;
+  entries=entries.filter(e=>e.id!==cur);cur=null;save();renderPage();renderList();
+}
+function msg(t){const m=$('msg');if(m)m.textContent=t}
+
+function toggleMic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('Voice typing is not supported in this browser. Try Chrome or Safari.');return}
+  if(rec){stopMic();return}
+  if(!get())newEntry();
+  rec=new SR();rec.continuous=true;rec.interimResults=false;rec.lang='en-US';
+  rec.onresult=ev=>{
+    for(let i=ev.resultIndex;i<ev.results.length;i++){
+      if(ev.results[i].isFinal){const b=$('body');b.value+=(b.value&&!/\s$/.test(b.value)?' ':'')+ev.results[i][0].transcript.trim();change()}
+    }
+  };
+  rec.onerror=ev=>{msg(ev.error==='not-allowed'?'Allow microphone access to use voice typing.':'Voice typing stopped. Tap the microphone to try again.');stopMic()};
+  rec.onend=()=>{if(rec)try{rec.start()}catch(e){}};
+  rec.start();$('mic').classList.add('rec');$('mic').setAttribute('aria-pressed','true');msg('Listening...');
+}
+function stopMic(){
+  if(rec){const r=rec;rec=null;r.onend=null;try{r.stop()}catch(e){}}
+  const m=$('mic');if(m){m.classList.remove('rec');m.setAttribute('aria-pressed','false')}
+  if($('msg')&&$('msg').textContent==='Listening...')msg('');
+}
+async function polish(){
+  const text=$('body').value.trim();
+  if(!text){msg('Write or speak something first.');return}
+  stopMic();msg('Working on it...');
+  try{
+    const r=await fetch('/api/polish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error||'Request failed');
+    $('ptext').textContent=d.text;$('polish').style.display='block';msg('');
+    $('use').onclick=()=>{$('body').value=d.text;$('polish').style.display='none';change()};
+    $('no').onclick=()=>{$('polish').style.display='none'};
+  }catch(err){msg('AI is not available: '+err.message)}
+}
+function applyAi(){const f=$('fix');if(f)f.style.display=aiOn?'':'none'}
+function applySettings(){document.body.classList.toggle('hide',!!S.hide)}
+function setTheme(t){document.documentElement.dataset.theme=t;theme=t;lsSet('mi-diario-theme',t);document.querySelectorAll('.sw').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===t)))}
+
+const FONTS={lora:{n:'Lora',g:'Professional',s:1,w:600,fb:'serif'},ebg:{n:'EB Garamond',g:'Professional',s:1.1,w:600,fb:'serif'},dm:{n:'DM Sans',g:'Professional',s:.95,w:600,fb:'sans-serif'},play:{n:'Playfair Display',g:'Elegant',s:.95,w:600,fb:'serif'},corm:{n:'Cormorant Garamond',g:'Elegant',s:1.15,w:600,fb:'serif'},caveat:{n:'Caveat',g:'Handwritten',s:1.3,w:600,fb:'cursive'},dance:{n:'Dancing Script',g:'Handwritten',s:1.1,w:600,fb:'cursive'},satis:{n:'Satisfy',g:'Handwritten',s:1.05,w:400,fb:'cursive'}};
+const STEM='M20 290C90 230 150 160 270 20';
+function leaves(){
+  const P=[[20,290],[90,230],[150,160],[270,20]],out=[],b=(t,k)=>{const u=1-t;return u*u*u*P[0][k]+3*u*u*t*P[1][k]+3*u*t*t*P[2][k]+t*t*t*P[3][k]},d=(t,k)=>{const u=1-t;return 3*u*u*(P[1][k]-P[0][k])+6*u*t*(P[2][k]-P[1][k])+3*t*t*(P[3][k]-P[2][k])};
+  for(let i=1;i<=10;i++){
+    const t=i/11,dx=d(t,0),dy=d(t,1),h=Math.hypot(dx,dy),s=i%2?1:-1,rx=24-i;
+    out.push([b(t,0)+(-dy/h)*s*14,b(t,1)+(dx/h)*s*14,rx,7,Math.atan2(dy,dx)*180/Math.PI+s*38]);
+  }
+  return out;
+}
+const TOPICS=['Love','Work','Faith','Family','Goals','Dreams','Travel'];
+const MC={Happy:'#d9a02f',Calm:'#4f9a92',Grateful:'#6f9a6f',Hopeful:'#e08a5a',Tired:'#7d73a8',Anxious:'#9a86b8',Sad:'#6b7f99',Angry:'#b5443f'};
+const TOPIC_IDEAS={
+  Love:['What do you love most about the people close to you?','Write about a moment you felt deeply loved.','What does love look like in your everyday life?'],
+  Work:['What did you accomplish at work this week?','What is one work challenge, and how could you handle it?','Where do you want your career to be next year?'],
+  Faith:['What are you thankful to God for today?','Write a prayer in your own words.','Where did you see faithfulness this week?'],
+  Family:['What is a favourite memory with your family?','Who in your family do you want to call or check on?','What tradition do you want to keep alive?'],
+  Goals:['What is one goal you are working on, and what is your next step?','What would make this month a win?','What habit do you want to build?'],
+  Dreams:['Describe the life you are dreaming of.','What did you dream about as a child?','If nothing could stop you, what would you start today?'],
+  Travel:['Where do you want to go next, and why?','Describe a place that changed how you see things.','What would your perfect trip look like?']
+};
+const star=(cx,cy,r)=>['p',`M${cx} ${cy-r}Q${cx} ${cy} ${cx+r} ${cy}Q${cx} ${cy} ${cx} ${cy+r}Q${cx} ${cy} ${cx-r} ${cy}Q${cx} ${cy} ${cx} ${cy-r}Z`,1];
+const drop=(x,y,k)=>['p',`M${x} ${y}C${x+7*k} ${y+12*k} ${x+9*k} ${y+20*k} ${x} ${y+24*k}C${x-9*k} ${y+20*k} ${x-7*k} ${y+12*k} ${x} ${y}Z`,1];
+const rays=(cx,cy,r1,r2,a0,a1,n)=>Array.from({length:n},(_,i)=>{const a=(a0+(a1-a0)*i/(n-1))*Math.PI/180,f=v=>v.toFixed(1);return['p',`M${f(cx+Math.cos(a)*r1)} ${f(cy+Math.sin(a)*r1)}L${f(cx+Math.cos(a)*r2)} ${f(cy+Math.sin(a)*r2)}`,0]});
+const M={
+  sprig:[['p',STEM,0],...leaves().map(l=>['e',...l])],
+  Happy:[['c',150,150,44,0],...rays(150,150,66,98,0,330,12)],
+  Calm:[90,130,170,210].map(y=>['p',`M0 ${y}Q37.5 ${y-28} 75 ${y}T150 ${y}T225 ${y}T300 ${y}`,0]),
+  Hopeful:[['p','M60 200A90 90 0 0 1 240 200',0],['p','M20 200H280',0],...rays(150,200,106,138,-170,-10,7)],
+  Tired:[['p','M215 55A115 115 0 1 0 215 245A100 100 0 1 1 215 55Z',1],star(165,135,17),star(210,195,10),star(125,175,9)],
+  Anxious:[25,55,85,115].map(r=>['c',150,150,r,0]),
+  Sad:[drop(90,50,1.6),drop(170,30,1.2),drop(225,95,1.8),drop(120,130,1.4),drop(60,165,1.1),drop(185,185,1.6),drop(255,225,1.2),drop(110,235,1.3)],
+  Angry:[['p','M175 25L95 160L145 160L115 275L215 125L160 125Z',1]],
+  Love:[['p','M150 255C40 175 50 70 110 70C135 70 150 90 150 105C150 90 165 70 190 70C250 70 260 175 150 255Z',0],['p','M240 95C232 80 212 88 220 104C224 112 240 120 240 120C240 120 256 112 260 104C268 88 248 80 240 95Z',1]],
+  Work:[['p','M45 105H255V245H45Z',0],['p','M110 105V78H190V105',0],['p','M45 165H255',0],['p','M135 155H165V182H135Z',0]],
+  Faith:[['p','M150 95C110 70 70 74 38 90V232C70 216 110 218 150 244Z',0],['p','M150 95C190 70 230 74 262 90V232C230 216 190 218 150 244Z',0],['p','M150 25V68M130 44H170',0]],
+  Family:[['p','M45 152L150 62L255 152',0],['p','M68 135V248H232V135',0],['p','M130 248V192H170V248',0]],
+  Goals:[['c',150,150,100,0],['c',150,150,65,0],['c',150,150,30,0],['p','M150 150L248 52M248 52H216M248 52V84',0]],
+  Dreams:[star(80,90,38),star(205,65,22),star(220,175,48),star(110,215,28),star(52,170,14),['c',150,130,4,1],['c',255,100,4,1]],
+  Travel:[['c',150,150,100,0],['c',150,150,8,1],['p','M150 72L172 150L150 228L128 150Z',0],['p','M150 38V54M150 246V262M38 150H54M246 150H262',0]]
+};
+function decoMotifs(e){
+  const t=e&&e.topic&&M[e.topic],mo=e&&e.mood&&M[e.mood]?e.mood:(e&&e.mood==='Grateful'?'Grateful':'');
+  return{br:{sh:t||M.sprig,color:null},tl:{sh:(mo&&M[mo])||M.sprig,color:mo?MC[mo]:null,rot:!(mo&&M[mo])}};
+}
+function svgShape(o){
+  const st='stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"';
+  if(o[0]==='p')return `<path d="${o[1]}" fill="${o[2]?'currentColor':'none'}" ${st}/>`;
+  if(o[0]==='c')return `<circle cx="${o[1]}" cy="${o[2]}" r="${o[3]}" fill="${o[4]?'currentColor':'none'}" ${st}/>`;
+  const cx=o[1].toFixed(1),cy=o[2].toFixed(1);
+  return `<ellipse cx="${cx}" cy="${cy}" rx="${o[3]}" ry="${o[4]}" transform="rotate(${o[5].toFixed(1)} ${cx} ${cy})" fill="currentColor"/>`;
+}
+function drawShape(x,o){
+  if(o[0]==='p'){const p=new Path2D(o[1]);o[2]?x.fill(p):x.stroke(p)}
+  else if(o[0]==='c'){x.beginPath();x.arc(o[1],o[2],o[3],0,Math.PI*2);o[4]?x.fill():x.stroke()}
+  else{x.beginPath();x.ellipse(o[1],o[2],o[3],o[4],o[5]*Math.PI/180,0,Math.PI*2);x.fill()}
+}
+function deco(e){
+  const d=decoMotifs(e),mk=(m,cls)=>`<svg class="deco ${cls}" viewBox="0 0 300 300" aria-hidden="true"${m.color?` style="color:${m.color}"`:''}>${m.sh.map(svgShape).join('')}</svg>`;
+  return mk(d.br,'br')+mk(d.tl,'tl'+(d.tl.rot?' rot':''));
+}
+function refreshDeco(e){document.querySelectorAll('#page>.deco').forEach(n=>n.remove());$('page').insertAdjacentHTML('afterbegin',deco(e))}
+function fontSel(e){
+  const cur=e.font||'lora',g={};
+  Object.entries(FONTS).forEach(([k,f])=>{(g[f.g]=g[f.g]||[]).push(`<option value="${k}"${k===cur?' selected':''}>${f.n}</option>`)});
+  return '<select id="font" aria-label="Font style">'+Object.entries(g).map(([n,o])=>`<optgroup label="${n}">${o.join('')}</optgroup>`).join('')+'</select>';
+}
+function applyFont(e){
+  const F=FONTS[(e&&e.font)||'lora']||FONTS.lora,pg=$('page');
+  pg.style.setProperty('--f',`"${F.n}",${F.fb}`);pg.style.setProperty('--fs',F.s);pg.style.setProperty('--fw',F.w);
+}
+function animName(el){if(!el)return;el.style.animation='none';void el.offsetWidth;el.style.animation=''}
+function wrap(x,text,w){
+  const out=[];
+  text.split('\n').forEach(p=>{
+    if(!p.trim()){out.push('');return}
+    let line='';
+    p.split(/\s+/).filter(Boolean).forEach(word=>{
+      const t=line?line+' '+word:word;
+      if(x.measureText(t).width<=w){line=t;return}
+      if(line)out.push(line);
+      let k;while(x.measureText(word).width>w&&word.length>1){k=word.length;while(k>1&&x.measureText(word.slice(0,k)).width>w)k--;out.push(word.slice(0,k));word=word.slice(k)}
+      line=word;
+    });
+    out.push(line);
+  });
+  return out;
+}
+async function savePicture(){
+  const e=get();if(!e){alert('Open a note first.');return}
+  msg('Making your picture...');
+  const F=FONTS[e.font||'lora']||FONTS.lora,fam=`"${F.n}", ${F.fb}`;
+  try{await Promise.all([document.fonts.load(`${F.w} 40px "${F.n}"`),document.fonts.load(`400 40px "${F.n}"`),document.fonts.load('400 40px "Great Vibes"'),document.fonts.load('400 20px "DM Sans"')])}catch(_){}
+  const cs=getComputedStyle(document.documentElement),c=n=>cs.getPropertyValue(n).trim();
+  const W=1080,P=96,mw=W-P*2,ts=64*F.s,bs=38*F.s,tl=ts*1.2,bl=bs*1.6;
+  const cv=document.createElement('canvas'),x=cv.getContext('2d');
+  x.font=`${F.w} ${ts}px ${fam}`;const tLines=(e.title||'').trim()?wrap(x,e.title,mw):[];
+  x.font=`400 ${bs}px ${fam}`;let bLines=wrap(x,e.body,mw);
+  const t0=120+ts*.9,bodyStart=tLines.length?t0+(tLines.length-1)*tl+64:120+bs*.9,maxLines=Math.floor((14000-bodyStart-120)/bl);
+  if(bLines.length>maxLines){bLines=bLines.slice(0,maxLines);bLines[maxLines-1]+=' ...'}
+  const H=Math.max(1080,Math.ceil(bodyStart+bLines.length*bl+110));
+  cv.width=W;cv.height=H;
+  x.fillStyle=c('--paper');x.fillRect(0,0,W,H);
+    x.textBaseline='alphabetic';
+  x.fillStyle=c('--head');x.font=`${F.w} ${ts}px ${fam}`;tLines.forEach((l,i)=>x.fillText(l,P,t0+i*tl));
+  x.fillStyle=c('--ink');x.font=`400 ${bs}px ${fam}`;bLines.forEach((l,i)=>x.fillText(l,P,bodyStart+i*bl));
+  const blob=await new Promise(res=>cv.toBlob(res,'image/png'));
+  if(!blob){msg('Could not make the picture on this device.');return}
+  const name='mi-diario-'+((e.title||'note').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'note')+'.png',file=new File([blob],name,{type:'image/png'});
+  msg('');
+  if(matchMedia('(pointer:coarse)').matches&&navigator.canShare&&navigator.canShare({files:[file]})){
+    try{await navigator.share({files:[file],title:e.title||'My note'});return}catch(err){if(err.name==='AbortError')return}
+  }
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+
+/* menu */
+function renderMenu(){
+  fixFilter();
+  $('s-words').checked=S.words;$('s-hide').checked=S.hide;$('s-group').checked=S.group;
+  $('s-filter').innerHTML='<option value="all">All notes</option><option value="pinned">Pinned</option>'+TOPICS.filter(t=>entries.some(e=>e.topic===t)).map(t=>`<option value="topic:${t}">Topic: ${t}</option>`).join('')+tags().map(t=>`<option value="tag:${esc(t)}">${esc(t)}</option>`).join('');
+  $('s-filter').value=S.filter;
+  $('m-pin').textContent=pin?'Change PIN':'Set PIN';$('m-unpin').hidden=!pin;$('m-lock').hidden=!pin;$('pinform').hidden=true;
+  const n=streaks().now;$('m-ins').textContent='Insights ('+n+(n===1?' day':' days')+' streak)';
+  document.querySelectorAll('.sw').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===theme)));
+}
+function openMenu(){lastFocus=document.activeElement;renderMenu();$('menu').hidden=false;$('scrim').hidden=false;$('hamb').setAttribute('aria-expanded','true');$('mclose').focus()}
+function closeMenu(){$('menu').hidden=true;$('scrim').hidden=true;$('hamb').setAttribute('aria-expanded','false');if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+function done(fn){closeMenu();fn()}
+function focusMode(on){document.body.classList.toggle('focus',on)}
+function pickIdea(){const e=get(),L=(e&&TOPIC_IDEAS[e.topic])||IDEAS;return L[Math.random()*L.length|0]}
+function showIdea(){
+  if(!get())newEntry();
+  const i=$('idea');i.innerHTML=`<span>${pickIdea()}</span><button class="link" id="more" type="button">Another</button><button class="link" id="hideidea" type="button">Hide</button>`;
+  i.style.display='flex';$('more').onclick=showIdea;$('hideidea').onclick=()=>{i.style.display='none'};
+}
+
+/* pin lock */
+async function hashPin(p,salt){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(salt+p));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+function lockNow(){
+  if(!pin)return;stopMic();document.body.classList.add('locked');$('lock').hidden=false;animName(document.querySelector('#lock .logo'));$('lpin').value='';$('lerr').textContent='';$('lpin').focus();
+}
+
+/* backup */
+function exportAll(){
+  const blob=new Blob([JSON.stringify({app:'mi-diario',exported:new Date().toISOString(),entries},null,1)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mi-diario-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function printNote(){
+  const e=get();if(!e){alert('Open a note first.');return}
+  $('pa').style.fontFamily='"'+(FONTS[e.font||'lora']||FONTS.lora).n+'", serif';$('pa').innerHTML='<h1>'+esc(e.title||'Untitled')+'</h1><small>'+fmt(e.updated)+'</small><p>'+esc(e.body)+'</p>';window.print();
+}
+
+/* wiring */
+$('ai').onchange=()=>{aiOn=$('ai').checked;lsSet('mi-diario-ai',aiOn?'on':'off');applyAi();const p=$('polish');if(p&&!aiOn)p.style.display='none'};
+$('mic').onclick=toggleMic;
+$('new').onclick=newEntry;
+$('search').oninput=renderList;
+$('list').onclick=ev=>{const b=ev.target.closest('button');if(b)select(b.dataset.id)};
+$('showing').onclick=ev=>{if(ev.target.id==='clr'){S.filter='all';saveS();renderList()}};
+$('hamb').onclick=openMenu;$('mclose').onclick=closeMenu;$('scrim').onclick=closeMenu;
+$('themeBox').onclick=ev=>{const b=ev.target.closest('.sw');if(b)setTheme(b.dataset.t)};
+$('s-words').onchange=()=>{S.words=$('s-words').checked;saveS();wcUpdate()};
+$('s-hide').onchange=()=>{S.hide=$('s-hide').checked;saveS();applySettings()};
+$('s-group').onchange=()=>{S.group=$('s-group').checked;saveS();renderList()};
+$('s-filter').onchange=()=>{S.filter=$('s-filter').value;saveS();renderList()};
+$('m-idea').onclick=()=>done(showIdea);
+$('m-focus').onclick=()=>done(()=>{if(!get())newEntry();focusMode(true)});
+$('exitf').onclick=()=>focusMode(false);
+$('m-ins').onclick=()=>done(showInsights);
+$('m-exp').onclick=exportAll;
+$('m-print').onclick=()=>done(printNote);
+$('m-lock').onclick=()=>done(lockNow);
+$('m-imp').onclick=()=>$('impf').click();
+$('m-pin').onclick=()=>{$('pinform').hidden=false;$('pinmsg').textContent='';$('pin1').focus()};
+$('m-unpin').onclick=()=>{if(confirm('Remove your PIN? Your notes will open without a code.')){pin=null;try{localStorage.removeItem('mi-diario-pin')}catch(e){}renderMenu()}};
+$('pinform').onsubmit=async ev=>{
+  ev.preventDefault();const v=$('pin1').value;
+  if(!/^\d{4,8}$/.test(v)){$('pinmsg').textContent='Use 4 to 8 digits.';return}
+  if(!(window.crypto&&crypto.subtle)){$('pinmsg').textContent='A PIN needs a secure (https) page.';return}
+  const salt=[...crypto.getRandomValues(new Uint8Array(8))].map(x=>x.toString(16).padStart(2,'0')).join('');
+  pin={salt,hash:await hashPin(v,salt)};lsSet('mi-diario-pin',JSON.stringify(pin));
+  $('pin1').value='';renderMenu();$('pinform').hidden=false;$('pinmsg').textContent='PIN saved. Download a backup too, in case you forget it.';
+};
+$('lform').onsubmit=async ev=>{
+  ev.preventDefault();
+  if(await hashPin($('lpin').value,pin.salt)===pin.hash){document.body.classList.remove('locked');$('lock').hidden=true}
+  else{$('lerr').textContent='That PIN is not right.';$('lpin').value='';$('lpin').focus()}
+};
+$('impf').onchange=async ev=>{
+  const f=ev.target.files[0];ev.target.value='';if(!f)return;
+  try{
+    const d=JSON.parse(await f.text()),inc=(d.entries||d).filter(x=>x&&typeof x.id==='string'&&typeof x.body==='string'),have=new Set(entries.map(e=>e.id));
+    const add=inc.filter(x=>!have.has(x.id)).map(x=>({id:x.id,title:String(x.title||''),body:x.body,mood:x.mood||'',tag:x.tag||'',pin:!!x.pin,font:FONTS[x.font]?x.font:'lora',topic:TOPICS.includes(x.topic)?x.topic:'',updated:Number(x.updated)||Date.now()}));
+    entries.push(...add);save();renderList();renderMenu();
+    alert(add.length+' notes restored. '+(inc.length-add.length)+' were already here.');
+  }catch(e){alert('That file could not be read. Choose a Mi Diario backup file.')}
+};
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Escape')return;
+  if(!$('menu').hidden)closeMenu();else if(document.body.classList.contains('focus'))focusMode(false);
+});
+
+const THEMES=[['blush','Blush','#f4e1e7','Soft'],['lavender','Lavender','#b9a6e0','Soft'],['sage','Sage','#a8cbb2','Soft'],['rosegold','Rose gold','#d9a79d','Soft'],['navy','Navy','#1c2f4f','Professional'],['slate','Slate','#5d6773','Professional'],['wine','Wine','#7a2f3d','Professional'],['teal','Teal','#2f7f7c','Professional'],['sand','Sand','#c8b595','Professional'],['dark','Dark','#1b1219','Professional']];
+$('themeBox').innerHTML=['Soft','Professional'].map(g=>`<div class="themes" role="group" aria-label="${g} themes"><span>${g}</span><div>${THEMES.filter(t=>t[3]===g).map(t=>`<button class="sw" data-t="${t[0]}" aria-label="${t[1]} theme" title="${t[1]}" style="background:${t[2]}"></button>`).join('')}</div></div>`).join('');
+load();applySettings();setTheme(theme);$('ai').checked=aiOn;
+renderList();renderPage();
+if(pin)lockNow();
+</script>
+</body>
+</html>
